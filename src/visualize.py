@@ -27,7 +27,7 @@ def create_bar_graph(data, file_name):
     plt.bar(keys, values,  color='blue')
     plt.ylabel('Counts')
     plt.xlabel('Keys')
-
+    plt.gca().invert_yaxis()
     plt.savefig(f'{args.output_filename}.png', bbox_inches='tight')
     plt.close()
 
