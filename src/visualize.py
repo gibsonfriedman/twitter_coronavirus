@@ -24,9 +24,9 @@ def create_bar_graph(data, file_name):
     values = [v for k, v in sorted_data]
 
     plt.figure(figsize=(10, 8))
-    plt.barh(keys, values, color='blue')
-    plt.xlabel('Counts')
-    plt.ylabel('Keys')
+    plt.barh(values, keys, color='blue')
+    plt.ylabel('Counts')
+    plt.xlabel('Keys')
 
     plt.savefig(f'{args.output_filename}.png', bbox_inches='tight')
     plt.close()
