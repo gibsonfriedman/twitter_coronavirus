@@ -25,10 +25,11 @@ def create_bar_graph(data, file_name):
     values = [v for k, v in sorted_data_asc]
 
     plt.figure(figsize=(10, 8))
-    plt.bar(keys, values,  color='blue')
-    plt.ylabel('Counts')
+    plt.bar(range(len(keys)), values, color='blue', tick_label=keys)
     plt.xlabel('Keys')
-    
+    plt.ylabel('Counts')
+    plt.xticks(rotation=45)
+
     plt.savefig(f'{args.output_filename}.png', bbox_inches='tight')
     plt.close()
 
