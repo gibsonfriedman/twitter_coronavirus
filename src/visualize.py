@@ -19,7 +19,7 @@ from collections import Counter,defaultdict
 import matplotlib.pyplot as plt
 
 def create_bar_graph(data, file_name):
-    sorted_data = sorted(data.items(), key=lambda item: item[1])[:10]
+    sorted_data = sorted(data.items(), key=lambda item: item[1], reverse=True)[:10]
     keys = [k for k, v in sorted_data]
     values = [v for k, v in sorted_data]
 
