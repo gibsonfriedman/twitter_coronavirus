@@ -6,6 +6,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--input_path',required=True)
 parser.add_argument('--key',required=True)
 parser.add_argument('--percent',action='store_true')
+parser.add_argument('--output_filename', required=True, help='Filename for the output PNG file')
 args = parser.parse_args()
 
 
@@ -27,7 +28,7 @@ def create_bar_graph(data, file_name):
     plt.xlabel('Counts')
     plt.ylabel('Keys')
 
-    plt.savefig(f'{file_name}.png', bbox_inches='tight')
+    plt.savefig(f'{args.output_filename}.png', bbox_inches='tight')
     plt.close()
 
 # open the input path
