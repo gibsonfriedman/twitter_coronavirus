@@ -8,10 +8,27 @@ parser.add_argument('--key',required=True)
 parser.add_argument('--percent',action='store_true')
 args = parser.parse_args()
 
+
 # imports
+import matplotlib
+matplotlib.use('Agg')
 import os
 import json
 from collections import Counter,defaultdict
+import matplotlib.pyplot as plt
+
+def create_bar_graph(data, file_name):
+    sorted_data = sorted(data.items(), key=lambda item: item[1])[:10]
+    keys = [k for k, v in sorted_data]
+    values = [v for k, v in sorted_data]
+
+    plt.figure(figsize=(10, 8))
+    plt.barh(keys, values, color='blue')
+    plt.xlabel('Counts')
+    plt.ylabel('Keys')
+
+    plt.savefig(f'{file_name}.png', bbox_inches='tight')
+    plt.close()
 
 # open the input path
 with open(args.input_path) as f:
@@ -22,7 +39,6 @@ if args.percent:
     for k in counts[args.key]:
         counts[args.key][k] /= counts['_all'][k]
 
-# print the count values
-items = sorted(counts[args.key].items(), key=lambda item: (item[1],item[0]), reverse=True)
-for k,v in items:
-    print(k,':',v)
+key_data = counts.get(args.key, {})
+create_bar_graph(key_data, os.path.basename(args.input_path).split('.')[0])
+
