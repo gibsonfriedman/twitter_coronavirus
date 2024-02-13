@@ -36,7 +36,7 @@ plt.figure(figsize=(14, 8))
 for hashtag, dates_counts in total.items():
     dates_sorted = sorted(dates_counts.keys())
     counts = [dates_counts[date] for date in dates_sorted]
-    plt.plot(dates_sorted, counts, label=hashtag, marker='o')
+    plt.plot(dates_sorted, counts, label=hashtag)
 
 plt.xlabel('Date')
 plt.ylabel('Tweet Count')
