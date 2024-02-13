@@ -41,7 +41,9 @@ for hashtag, dates_counts in total.items():
 plt.xlabel('Date')
 plt.ylabel('Tweet Count')
 plt.title('Tweet Counts by Hashtag Over Time')
-plt.xticks(rotation=45)
+all_dates = list(sorted(total[next(iter(total))].keys()))
+selected_dates = all_dates[::20]
+plt.xticks(selected_dates, rotation=45)
 plt.legend()
 plt.tight_layout()
 plt.savefig('hashtag_trends.png')
