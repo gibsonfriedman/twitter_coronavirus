@@ -42,6 +42,6 @@ plt.title('Tweet Counts by Hashtag Over Time')
 plt.xticks(rotation=45)
 plt.legend()
 plt.tight_layout()
-plt.savefig('hashtag_trends.png')
+plt.savefig('trends.png')
 plt.close()
 
