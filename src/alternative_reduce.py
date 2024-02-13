@@ -32,11 +32,9 @@ for filename in sorted(os.listdir('outputs')):
 
 plt.figure(figsize=(12, 8))
 for hashtag, dates in hashtag_counts.items():
-    # Sort dates and get counts in order
-    dates_sorted = sorted(dates)
+    dates_sorted = sorted(dates.keys())
     counts = [dates[date] for date in dates_sorted]
-    
-    plt.plot(dates_sorted, counts, label=hashtag, marker='o')  # Added markers for clarity
+    plt.plot(dates_sorted, counts, label=hashtag, marker='o')
 
 plt.xlabel('Date')
 plt.ylabel('Tweet Count')
