@@ -14,26 +14,28 @@ import json
 from collections import Counter,defaultdict
 import matplotlib.pyplot as plt
 
-date_pattern = re.compile(r'geoTwitter(\d{2}-\d{2}-\d{2})\.zip\.lang')
-hashtag_counts = defaultdict(lambda: defaultdict(int))
+total = {}
 
-for filename in sorted(os.listdir('outputs')):
-    match = date_pattern.search(filename)
-    if match:
-        date = '20' + match.group(1)
-        file_path = os.path.join('outputs', filename)
-        with open(file_path, 'r') as file:
-            data = json.load(file)
-            for hashtag in args.hashtags:
-                hashtag_count = 0
-                if hashtag in data:
-                    hashtag_count = sum(data[hashtag].values())
-                hashtag_counts[hashtag][date] += hashtag_count
+for hashtag in args.hashtags:
+    dayCount = {}
+    for filename in sorted(os.listdir('outputs')):
+        dayTweets = os.path.join('outputs', filename)
+        date = filename[10:18]
+        if os.path.isfile(dayTweets) and 'lang' in dayTweets:
+            tweetCount = 0
+            with open(dayTweets) as file:
+                data = json.load(file)
+                for k in data:
+                    if hashtag == k:
+                        for key in data[k]:
+                            tweetCount += data[k][key]
+            dayCount[date] = tweetCount
+    total[hashtag] = dayCount
 
-plt.figure(figsize=(12, 8))
-for hashtag, dates in hashtag_counts.items():
-    dates_sorted = sorted(dates.keys())
-    counts = [dates[date] for date in dates_sorted]
+plt.figure(figsize=(14, 8))
+for hashtag, dates_counts in total.items():
+    dates_sorted = sorted(dates_counts.keys())
+    counts = [dates_counts[date] for date in dates_sorted]
     plt.plot(dates_sorted, counts, label=hashtag, marker='o')
 
 plt.xlabel('Date')
@@ -42,6 +44,5 @@ plt.title('Tweet Counts by Hashtag Over Time')
 plt.xticks(rotation=45)
 plt.legend()
 plt.tight_layout()
-plt.savefig('trends.png')
+plt.savefig('hashtag_trends.png')
 plt.close()
-
